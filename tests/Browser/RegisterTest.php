@@ -8,8 +8,12 @@ use App\SocialAccount;
 use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Facades\Socialite as Socialite;
 
+/**
+ * Class RegisterTest
+ * @package Tests\Browser
+ */
 class RegisterTest extends DuskTestCase
 {
 
@@ -52,6 +56,34 @@ class RegisterTest extends DuskTestCase
         });
     }
 
+    /**
+     * Mock the Socialite Factory, so we can hijack the OAuth Request.
+     * @param  string  $email
+     * @param  string  $token
+     * @param  int $id
+     * @return void
+     */
+    public function mockSocialiteFacade($email = 'foo@bar.com', $token = 'foo', $id = 1)
+    {
+        $socialiteUser = $this->createMock(Laravel\Socialite\Two\User::class);
+        $socialiteUser->token = $token;
+        $socialiteUser->id = $id;
+        $socialiteUser->email = $email;
+
+        $provider = $this->createMock(Laravel\Socialite\Two\FaceBookProvider::class);
+        $provider->expects($this->any())
+            ->method('user')
+            ->willReturn($socialiteUser);
+
+        $stub = $this->createMock(Socialite::class);
+        $stub->expects($this->any())
+            ->method('driver')
+            ->willReturn($provider);
+
+        // Replace Socialite Instance with our mock
+        $this->app->instance(Socialite::class, $stub);
+    }
+https://stefanzweifel.io/posts/how-i-write-integration-tests-for-laravel-socialite-powered-apps
     /**
      * this will test social fb login
      */
