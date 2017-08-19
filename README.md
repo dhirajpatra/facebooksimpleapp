@@ -3,6 +3,7 @@
 
 ### About
 Facebook Simple App with the following features:
+   User can register and login usual way by directly entering details. But also you can do the same thing by FaceBook social login.
 
    Using PHP and MySQL as database. With followed SOLID design pattern, clean architecture, well-structured and high-performance database schema.
     The user connect/login with Facebook (logout accordingly) The user data saved in the MySQL database.
@@ -24,6 +25,14 @@ Facebook Simple App with the following features:
 7. From the projects root folder run `php artisan migrate`
 8. From the projects root folder run `composer dump-autoload`
 9. From the projects root folder run `php artisan db:seed`
+
+
+10.Create a FaceBook app from https://developers.facebook.com/docs/apps/register [read the help]
+
+Main settings part is Dashboard to get App Id, App Secret.
+In Settings you have to select WebSite. Then put Site URL value as per your host/domain/virtual host.
+
+###See the video and images in /documents folder for details.###
 
 #### Optionally Build Cache
 1. From the projects root folder run `sudo php artisan config:cache`
