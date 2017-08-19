@@ -19,7 +19,7 @@ use User;
 class SocialAuthController extends Controller
 {
     /**
-     * this will process after redirect from fb
+     * Redirect User to FaceBook to approve OAuth Handshake.
      *
      * @return mixed
      */
@@ -34,7 +34,7 @@ class SocialAuthController extends Controller
     }
 
     /**
-     * redirect call back // when facebook call us a with token
+     * Handle Return Request from FaceBook OAuth API
      *
      * @param SocialAccountService $service
      * @return \Illuminate\Http\RedirectResponse|string

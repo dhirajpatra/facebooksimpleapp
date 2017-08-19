@@ -53,6 +53,9 @@ In Settings you have to select WebSite. Then put Site URL value as per your host
 
 #### De-Authentication Routes
 * ```/delete```
+
+It need to update De Authorization URL call back set up at Face Book Developer panel of the APP. It accepts only https url.
+
 ### Socialite
 
 #### Get Socialite Login API Keys:

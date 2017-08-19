@@ -3,6 +3,8 @@
 namespace Tests\Browser;
 
 use Tests\DuskTestCase;
+use App\User;
+use App\SocialAccount;
 use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -10,10 +12,50 @@ use Laravel\Socialite\Facades\Socialite;
 
 class RegisterTest extends DuskTestCase
 {
+
+    /**
+     * Log out of the application.
+     *
+     * @param  string  $guard
+     * @return $this
+     */
+    public function logout($guard = null)
+    {
+        $this->browse(function ($browser) use ($guard) {
+            $browser->visit(rtrim('/_dusk/logout/'.$guard, '/'));
+        });
+
+    }
+
+    /**
+     * Test user input login
+     * test only if you have run the seeder to create test user
+     *
+     * @throws \Exception
+     * @throws \Throwable
+     */
+    public function testLogin()
+    {
+        $this->logout();
+
+        $this->browse(function ($browser) {
+            $browser->visit('/') //Go to the homepage
+            ->clickLink('Login') //Click the Register link
+            ->assertSee('Login') //Make sure the phrase in the arguement is on the page
+            //Fill the form with these values
+            ->value('#email', 'joe@example.com')
+                ->value('#password', '123456')
+                ->click('button[type="submit"]') //Click the submit button on the page
+                ->assertPathIs('/home') //Make sure you are in the home page
+                //Make sure you see the phrase in the arguement
+                ->assertSee("You are logged in!");
+        });
+    }
+
     /**
      * this will test social fb login
      */
-    /*public function testLogin()
+    /*public function testSociallogin()
     {
 
         $abstractUser = Mockery::mock('Laravel\Socialite\Two\User');
@@ -72,18 +114,23 @@ class RegisterTest extends DuskTestCase
     }*/
 
     /**
+     * Test general user input registration
+     *
      * @throws \Exception
      * @throws \Throwable
      */
-    public function testExample()
+    public function testRegistration()
     {
+        $this->logout();
+
         $this->browse(function ($browser) {
+            $rand = substr(md5(microtime()),rand(0,26),9);
             $browser->visit('/') //Go to the homepage
             ->clickLink('Register') //Click the Register link
             ->assertSee('Register') //Make sure the phrase in the arguement is on the page
             //Fill the form with these values
             ->value('#name', 'Joe')
-                ->value('#email', 'joe@example.com')
+                ->value('#email', $rand . 'joe@example.com')
                 ->value('#password', '123456')
                 ->value('#password-confirm', '123456')
                 ->click('button[type="submit"]') //Click the submit button on the page
@@ -92,4 +139,6 @@ class RegisterTest extends DuskTestCase
                 ->assertSee("You are logged in!");
         });
     }
+
+
 }
