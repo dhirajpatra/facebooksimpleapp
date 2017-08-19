@@ -10,14 +10,6 @@ Facebook Simple App with the following features:
     The token, which will be stored for the user in the database, should be a long living access token
     If the user removes the Facebook app, the user shall be marked as "is_active = false" in the database (Note: Facebook deauth callback)
 
-Links
-
-    https://developers.facebook.com/docs/facebook-login/access-tokens
-
-    https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow/v2.4
-
-    https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow/v2.1#deauth-callback
-
 
 ### Installation Instructions
 1. Run `sudo git clone https://github.com/dhirajpatra/facebooksimpleapp.git`
@@ -96,42 +88,6 @@ EMAIL_EXCEPTION_TO='email1@gmail.com, email2@rubicon.com'
 EMAIL_EXCEPTION_CC=''
 EMAIL_EXCEPTION_BCC=''
 EMAIL_EXCEPTION_SUBJECT=''
-
-ACTIVATION=true
-ACTIVATION_LIMIT_TIME_PERIOD=24
-ACTIVATION_LIMIT_MAX_ATTEMPTS=3
-
-NULL_IP_ADDRESS=0.0.0.0
-
-DEBUG_BAR_ENVIRONMENT=local
-
-USER_RESTORE_CUTOFF_DAYS=31
-USER_RESTORE_ENCRYPTION_KEY=
-
-DEFAULT_GRAVATAR_SIZE=80
-DEFAULT_GRAVATAR_FALLBACK=http://c1940652.r52.cf0.rackcdn.com/51ce28d0fb4f442061000000/Screen-Shot-2013-06-28-at-5.22.23-PM.png
-DEFAULT_GRAVATAR_SECURE=false
-DEFAULT_GRAVATAR_MAX_RATING=g
-DEFAULT_GRAVATAR_FORCE_DEFAULT=false
-DEFAULT_GRAVATAR_FORCE_EXTENSION=jpg
-
-PUSHER_APP_ID=
-PUSHER_APP_KEY=
-PUSHER_APP_SECRET=
-
-// NOTE: YOU CAN REMOVE THE KEY CALL IN app.blade.php IF YOU GET A POP UP AND DO NOT WANT TO SETUP A KEY FOR DEV
-# Google Maps API v3 Key - https://developers.google.com/maps/documentation/javascript/get-api-key#get-an-api-key
-GOOGLEMAPS_API_KEY=YOURGOOGLEMAPSkeyHERE
-
-# https://console.developers.google.com/ - NEED OAUTH CREDS
-GOOGLE_ID=YOURGOOGLEPLUSidHERE
-GOOGLE_SECRET=YOURGOOGLEPLUSsecretHERE
-GOOGLE_REDIRECT=http://yourwebsiteURLhere.com/social/handle/google
-
-# https://www.google.com/recaptcha/admin#list
-ENABLE_RECAPTCHA=false
-RE_CAP_SITE=YOURGOOGLECAPTCHAsitekeyHERE
-RE_CAP_SECRET=YOURGOOGLECAPTCHAsecretHERE
 
 # https://developers.facebook.com/
 FB_ID=YOURFACEBOOKidHERE
