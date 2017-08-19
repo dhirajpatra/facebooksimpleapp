@@ -32,7 +32,7 @@ Facebook Simple App with the following features:
 Main settings part is Dashboard to get App Id, App Secret.
 In Settings you have to select WebSite. Then put Site URL value as per your host/domain/virtual host.
 
-###See the video and images in /documents folder for details.###
+### See the video and images in /documents folder for details. ###
 
 #### Optionally Build Cache
 1. From the projects root folder run `sudo php artisan config:cache`
