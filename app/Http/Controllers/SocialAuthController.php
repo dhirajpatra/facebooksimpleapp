@@ -81,8 +81,6 @@ class SocialAuthController extends Controller
 
             $socialAccountService->deAuthorize($signedRequest);
 
-            return true;
-
         } catch (\Exception $e) {
             return $e->getMessage();
         }

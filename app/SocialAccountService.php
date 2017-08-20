@@ -26,10 +26,19 @@ class SocialAccountService
 
             $account = SocialAccount::whereProvider('facebook')
                 ->whereProviderUserId($providerUser->getId())
-                ->whereIsActive(1)
                 ->first();
 
             if ($account) {
+                // need update
+                $socialData = array(
+                    'provider_user_id'      => $providerUser->getId(),
+                    'provider'              => 'facebook',
+                    'is_active'             => 1,
+                    'provider_access_token' => $providerUser->token
+                );
+                $socialAccount = new SocialAccount();
+                $socialAccount->updateSocial($socialData);
+
                 return $account->user;
 
             } else {
@@ -136,11 +145,10 @@ class SocialAccountService
                 return null;
             }
 
-            $this->auth->logout();
             // update user as in active
             $socialAccount->updateStatusInactive( $data['user_id'] );
 
-            return true;
+            $this->auth->logout();
 
         } catch (\Exception $e) {
             return $e->getMessage();

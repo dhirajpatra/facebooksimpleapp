@@ -60,6 +60,35 @@ class SocialAccount extends Model
             return $e->getMessage();
         }
     }
+
+    /**
+     * This method will update social data of an existing user
+     *
+     * @param array $socialData
+     * @return bool|string
+     */
+    public function updateSocial($providerUser)
+    {
+        try {
+            $updated = SocialAccount::where (
+                [
+                    ["provider_user_id", $providerUser['provider_user_id']]
+                ])
+                ->update(
+                    [
+                        'provider'              => $providerUser['provider'],
+                        'is_active'             => $providerUser['is_active'],
+                        'provider_access_token' => $providerUser['provider_access_token']
+                    ]
+                );
+
+            return $updated;
+
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     /**
      * Related table
      *

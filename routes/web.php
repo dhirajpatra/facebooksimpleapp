@@ -22,6 +22,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // facebook deauthorization call back process to in active user
+Route::get('/delete', 'SocialAuthController@delete')->name('delete');
 Route::post('/delete', 'SocialAuthController@delete')->name('delete');
 
 // facebook redirecct after login

@@ -30,8 +30,9 @@ Facebook Simple App with the following features:
 
 12. Create a FaceBook app from https://developers.facebook.com/docs/apps/register [read the help]
 
-Main settings part is Dashboard to get App Id, App Secret.
-In Settings you have to select WebSite. Then put Site URL value as per your host/domain/virtual host.
+Main settings part is in Dashboard to get App Id and App Secret.
+In Settings you have to input WebSite address eg. fbsimpleapp.dev [for my localhost site].
+De authorization url need https:// domain.
 
 
 ####  To run Test ####
@@ -54,9 +55,11 @@ In Settings you have to select WebSite. Then put Site URL value as per your host
 #### De-Authentication Routes
 * ```/delete```
 
-It need to update De Authorization URL call back set up at Face Book Developer panel of the APP. It accepts only https url.
+It need to update De Authorization URL call back set up at Face Book Developer panel of the APP. It accepts only https url eg. https:// DOMAIN_NAME OR PROJECT PATH/delete [/delete route will process the FB call back value and update the DB to is_active = 0]
 
 ### Socialite
+
+https://github.com/laravel/socialite
 
 #### Get Socialite Login API Keys:
 
@@ -65,6 +68,7 @@ It need to update De Authorization URL call back set up at Face Book Developer p
 
 ### Environment File
 
+You have to add/update env values as per your FB app, DB connection details etc.
 Example `.env` file:
 
 ```
