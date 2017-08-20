@@ -1,4 +1,4 @@
-#### FacebookSimpleApp is a Complete Build of Laravel 5.4 Social Authentication.
+#### FacebookSimpleApp is a Complete Build of Laravel 5.4 
 
 
 ### About
