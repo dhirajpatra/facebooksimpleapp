@@ -3,6 +3,9 @@
 namespace Tests\Browser;
 
 use Tests\DuskTestCase;
+use Facebook\WebDriver\Chrome\ChromeOptions;
+use Facebook\WebDriver\Remote\DesiredCapabilities;
+use Facebook\WebDriver\Remote\RemoteWebDriver;
 use App\User;
 use App\SocialAccount;
 use Laravel\Dusk\Browser;
@@ -16,6 +19,24 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
  */
 class RegisterTest extends DuskTestCase
 {
+
+    /**
+     * Create the RemoteWebDriver instance.
+     *
+     * @return \Facebook\WebDriver\Remote\RemoteWebDriver
+     */
+    protected function driver()
+    {
+        $chromeOptions = new ChromeOptions();
+        $chromeOptions->addArguments(['no-sandbox']);
+        $capabilities = DesiredCapabilities::chrome();
+        $capabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
+
+        return RemoteWebDriver::create(
+            'http://localhost:9515',
+            $capabilities, 150000, 150000
+        );
+    }
 
     /**
      * Log out of the application.
@@ -60,10 +81,10 @@ class RegisterTest extends DuskTestCase
     /**
      * this will test social fb login
      */
-    /*public function testSociallogin()
+    public function testSociallogin()
     {
 
-        $abstractUser = Mockery::mock('Laravel\Socialite\Two\User');
+        /*$abstractUser = Mockery::mock('Laravel\Socialite\Two\User');
          $abstractUser->shouldReceive('getId')
          ->andReturn(1234567890)
          ->shouldReceive('getEmail')
@@ -81,13 +102,13 @@ class RegisterTest extends DuskTestCase
          Socialite::shouldReceive('driver')->with('facebook')->andReturn($provider);
 
          $this->visit(route("authFacebookCallback"))
-         ->seePageIs(route("home"));
+         ->seePageIs(route("home"));*/
 
 
 
     
 
-        $provider = \Mockery::mock('Laravel\Socialite\Contracts\Provider');
+        /*$provider = \Mockery::mock('Laravel\Socialite\Contracts\Provider');
         $provider->shouldReceive('redirect')->andReturn('Redirected');
         $providerName = class_basename($provider);
         //Call model factory here
@@ -114,9 +135,9 @@ class RegisterTest extends DuskTestCase
         $this->browse(function ($browser) {
             $browser->visit('/callback')
                 -> assertSee('/');
-        });
+        });*/
 
-    }*/
+    }
 
     /**
      * Test general user input registration

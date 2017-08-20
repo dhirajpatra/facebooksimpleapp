@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+#use App\Console\Commands\DuskCommand;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Dusk\DuskServiceProvider;// Importing DuskServiceProvider class
 
@@ -31,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
         // for phpunti DUSK testing environment
         if ($this->app->environment('local', 'testing')) {
             $this->app->register(DuskServiceProvider::class);
+            //$this->commands(DuskCommand::class);
         }
     }
 }

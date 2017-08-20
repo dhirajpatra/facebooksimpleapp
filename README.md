@@ -5,11 +5,12 @@
 Facebook Simple App with the following features:
    User can register and login usual way by directly entering details. But also you can do the same thing by FaceBook social login.
 
-   Using PHP and MySQL as database. With followed SOLID design pattern, clean architecture, well-structured and high-performance database schema.
+   Using functional PHP and MySQL as database with ORM. With followed SOLID design pattern, clean architecture, well-structured and high-performance database schema.
     The user connect/login with Facebook (logout accordingly) The user data saved in the MySQL database.
     The Facebook app simply provide the following output: the name and profile picture of the logged-in user.
     The token, which will be stored for the user in the database, should be a long living access token
     If the user removes the Facebook app, the user shall be marked as "is_active = false" in the database (Note: Facebook deauth callback)
+    It will update is_active = 1 again when they relogin with app again. Then no new entry will be inserted only it will update all data realted to same user.
 
 
 ### Installation Instructions
@@ -34,10 +35,14 @@ Main settings part is in Dashboard to get App Id and App Secret.
 In Settings you have to input WebSite address eg. fbsimpleapp.dev [for my localhost site].
 De authorization url need https:// domain.
 
+[Documents for this project](documents/)
+
 
 ####  To run Test ####
  From the project root folder run `php artisan dusk`
- [Do not run above command as root].
+ [Do not run above command as root. If it stucked you need to check the option for your operating system with DUSK. Some test cases couldnt test due to lack of time].
+ From the project root folder run `./vendor/bin/phpunit`
+ [to test the unit and integration test cases]
 
 #### See the video and images in /documents folder for details. ####
 

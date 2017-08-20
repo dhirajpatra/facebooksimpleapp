@@ -6,8 +6,11 @@ use Tests\TestCase;
 use \Mockery;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use \Laravel\Socialite\Facades\Socialite as Socialite;
 use \Laravel\Socialite\Contracts\User as ProviderUser;
+use Socialite;
+use App\SocialAccount;
+use App\User;
+
 
 /**
  * Class SocialTest
@@ -26,23 +29,18 @@ class SocialTest extends TestCase
      */
     public function mockSocialiteFacade($email = 'foo@bar.com', $token = 'foo', $id = 1)
     {
-        $socialiteUser = $this->createMock(Laravel\Socialite\Two\User::class);
+        $socialiteUser = $this->createMock(Socialite::class);
         $socialiteUser->token = $token;
         $socialiteUser->id = $id;
         $socialiteUser->email = $email;
 
-        $provider = $this->createMock(Socialite::driver('facebook'));
+        $provider = $this->createMock(\App\SocialAccountService::class);
         $provider->expects($this->any())
-            ->method('user')
+            ->method('createOrGetUser')
             ->willReturn($socialiteUser);
 
-        $stub = $this->createMock(Socialite::class);
-        $stub->expects($this->any())
-            ->method('driver')
-            ->willReturn($provider);
-
         // Replace Socialite Instance with our mock
-        $this->app->instance(Socialite::class, $stub);
+        $this->app->instance(Socialite::class, $provider);
     }
 
     /**
@@ -50,24 +48,12 @@ class SocialTest extends TestCase
      */
     public function it_redirects_to_facebook()
     {
-        $response = $this->call('GET', Socialite::driver('facebook')->redirect());
+        $response = $this->call('GET', '/redirect');
 
-        $this->assertContains('facebook.com/login/oauth', $response->getTargetUrl());
+        $this->assertContains('https://www.facebook.com/v2.10/dialog/oauth', $response->getTargetUrl());
     }
 
-    /** @test */
-    public function it_retrieves_facebook_request_and_creates_a_new_user()
-    {
-        // Mock the Facade and return a User Object with the email 'foo@bar.com'
-        $this->mockSocialiteFacade('foo@bar.com');
 
-        $this->visit('/callback')
-            ->seePageIs('/home');
-
-        $this->seeInDatabase('users', [
-            'email' => 'foo@bar.com',
-        ]);
-    }
 
     /**
      * A basic test example.
